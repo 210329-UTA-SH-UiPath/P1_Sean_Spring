@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PizzaBoxFrontEnd.Models.Order>
+
+@{
+    ViewData["Title"] = "GetByCustomerId";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Your Past Orders</h1>
+
+<a href='javascript:history.go(-1)'>Go Back</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderId)
+            </th>
+            <th>
+                Customer
+            </th>
+            <th>
+                Store
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Store.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome To PizzaBox!</h1>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+    
+</div>
+
+<div class="text-body">
+    <form method="get" asp-action="GetByName" asp-controller="Customer">
+        <label for="name">Returning cutomer? Sign in Here!</label><br />
+        <input type="text" id="name" name="name" /><br />
+        <input type="submit" value="Login">
+    </form>
+
+    <p>
+        New Here? <a asp-controller="Customer" asp-action="Create">Click Here to Create New Account</a>
+    </p>
+</div>
