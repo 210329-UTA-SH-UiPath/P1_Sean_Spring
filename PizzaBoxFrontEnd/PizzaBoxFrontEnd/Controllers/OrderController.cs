@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
+using PizzaBoxFrontEnd.Models;
 
 namespace PizzaBoxFrontEnd.Controllers
 {
@@ -15,10 +16,33 @@ namespace PizzaBoxFrontEnd.Controllers
             return View(orders);
         }
 
-        [HttpGet]
-        public IActionResult Create()
+        [HttpPost]
+        public IActionResult Create([Bind("CustomerId, StoreId")] Order order)
         {
-            return View();
+            order.Date = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                client.AddOrder(order);
+                Thread.Sleep(1000);
+                var newOrder = client.GetRecentlyAddedOrder();
+                return View("NewOrder", newOrder);
+            }
+
+            else
+                return View();
+        }
+
+        [HttpGet]
+        public IActionResult IndexById(int id)
+        {
+            var order = client.GetOrderById(id);
+            order.setPrice();
+            if (order == null)
+            {
+                return NotFound($"The order with id {id} is not in the database");
+            }
+            else
+                return View("IndexById", order);
         }
     }
 }

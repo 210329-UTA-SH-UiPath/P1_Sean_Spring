@@ -36,16 +36,20 @@ namespace PizzaBox.Api.Controllers
             return Ok(repository.GetAllOrdersByStoreId(StoreId));
         }
 
+        [HttpGet] 
+        public ActionResult<Order> GetRecentlyAdded()
+        {
+            return Ok(repository.GetRecentlyAdded());
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Order> GetOrderById(int id)
+        {
+            return Ok(repository.GetById(id));
+        }
 
 
-        //[HttpGet({"id"})]
-        //public ActionResult<Order> GetOrderByStoreId(int id)
-        //{
-
-        //}
-
-
-        [HttpPost]
+    [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 

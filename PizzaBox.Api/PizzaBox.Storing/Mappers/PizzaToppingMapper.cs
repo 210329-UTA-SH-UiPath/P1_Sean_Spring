@@ -3,8 +3,10 @@ namespace PizzaBox.Storing.Mappers
 
     public class PizzaToppingMapper : IMapper<PizzaBox.Storing.Entities.PizzaTopping, PizzaBox.Domain.Models.PizzaTopping>
     {
+        private ToppingMapper toppingMapper = new ToppingMapper();
         public Entities.PizzaTopping Map(Domain.Models.PizzaTopping obj)
         {
+            
             return new Entities.PizzaTopping
             {
                 PizzaToppingId = obj.PizzaToppingId,
@@ -19,7 +21,9 @@ namespace PizzaBox.Storing.Mappers
             {
                 PizzaToppingId = obj.PizzaToppingId,
                 PizzaId = obj.PizzaId,
-                ToppingId = obj.ToppingId
+                ToppingId = obj.ToppingId,
+
+                Topping = toppingMapper.Map(obj.Topping)
             };
         }
     }

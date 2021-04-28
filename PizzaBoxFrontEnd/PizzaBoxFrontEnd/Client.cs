@@ -66,6 +66,25 @@ namespace PizzaBoxFrontEnd
             Console.WriteLine(result);
         }
 
+        public async void AddOrder(Order order)
+        {
+            var json = JsonConvert.SerializeObject(order);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            using var client = new HttpClient();
+            var response = await client.PostAsync(url + "Order", data);
+            var result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+        }
+
+        public async void AddOrderPizza(OrderPizza orderPizza)
+        {
+            var json = JsonConvert.SerializeObject(orderPizza);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            using var client = new HttpClient();
+            var response = await client.PostAsync(url + "OrderPizza", data);
+            var result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+        }
 
         public IEnumerable<Order> GetOrdersByCustomerId(int id)
         {
@@ -83,6 +102,46 @@ namespace PizzaBoxFrontEnd
 
                 var orders = readTask.Result;
                 return orders;
+            }
+            return null;
+        }
+
+        public Order GetOrderById(int id)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(url + "Order/" + id);
+            var response = client.GetAsync("");
+            response.Wait();
+
+            var result = response.Result;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<Order>();
+                readTask.Wait();
+
+                var order = readTask.Result;
+                return order;
+            }
+            return null;
+        }
+
+        public Order GetRecentlyAddedOrder()
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(url + "Order/");
+            var response = client.GetAsync("");
+            response.Wait();
+
+            var result = response.Result;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<Order>();
+                readTask.Wait();
+
+                var order = readTask.Result;
+                return order;
             }
             return null;
         }

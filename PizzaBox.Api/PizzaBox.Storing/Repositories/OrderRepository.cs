@@ -72,7 +72,10 @@ namespace PizzaBox.Storing.Repositories
 
         public Domain.Models.Order GetById(int id)
         {
-            return mapper.Map(context.Orders.Where(x => x.OrderId == id).FirstOrDefault());
+            return mapper.Map(context.Orders.Include(o => o.Customer).Include(o => o.Store).Include(o => o.OrderPizzas).ThenInclude(p => p.Pizza).ThenInclude(p => p.Crust)
+                .Include(o => o.OrderPizzas).ThenInclude(p => p.Pizza).ThenInclude(p => p.Size)
+                .Include(o => o.OrderPizzas).ThenInclude(p => p.Pizza).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
+                .Include(o => o.OrderPizzas).ThenInclude(p => p.Pizza).Where(x => x.OrderId == id).FirstOrDefault());
         }
     }
 }

@@ -3,6 +3,19 @@
 *@
 <h1>Welcome @Model.Name !!</h1>
 
-<a asp-action="Create" asp-controller="Order">Would you like to make a new Order?</a><br />
+<div>
+    <form method="post" asp-action="Create" asp-controller="Order">
+        <label for="store">Choose a store:</label>
+        <input type="hidden" id="cutomerid" name="customerid" value="@Model.CustomerId" />
+        <select id="storeid" name="storeid">
+            <option value="1">Houston Store</option>
+            <option value="2">Chicago Store</option>
+        </select>
+        <input type="submit" value="Would you like to make a new Order?"/>
+    </form>
+</div>
+
+
+@*<a asp-action="Create" asp-controller="Order">Would you like to make a new Order?</a>*@<br />
 <a asp-action="GetByCustomerId" asp-controller="Order" asp-route-id="@Model.CustomerId">Would you like to view past Orders?</a><br />
 <a asp-action="Index">Back to List</a><br />

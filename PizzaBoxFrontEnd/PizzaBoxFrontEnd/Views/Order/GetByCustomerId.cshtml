@@ -23,6 +23,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
+            <th>
+                Price
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,8 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "IndexById", "Order", new { id = item.OrderId })
             </td>
         </tr>
 }

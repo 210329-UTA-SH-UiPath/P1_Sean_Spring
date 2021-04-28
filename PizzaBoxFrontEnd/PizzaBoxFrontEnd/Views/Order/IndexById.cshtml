@@ -1,0 +1,71 @@
+﻿@model PizzaBoxFrontEnd.Models.Order
+
+@{
+    ViewData["Title"] = "IndexById";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>IndexById</h1>
+
+<a href='javascript:history.go(-1)'>Go Back</a>
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Customer
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Store
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Store.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-2">
+            Order Price
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+    </dl>
+    @foreach (var item in Model.OrderPizzas)
+    {
+        <ul>
+            <li>
+                Pizza - @item.Pizza.Name - Qty: @item.Quantity
+            </li>
+            <li>
+                <ul>
+                    <li>
+                        Size - @item.Pizza.Size.Name - @item.Pizza.Size.Price
+                    </li>
+                    <li>
+                        Crust - @item.Pizza.Crust.Name - @item.Pizza.Crust.Price
+                    </li>
+                    @foreach (var topping in item.Pizza.PizzaToppings)
+                    {
+                        <li>
+                            Topping - @topping.Topping.Name - @topping.Topping.Price
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    }
+
+
+
+
+</div>
+<div>
+</div>
