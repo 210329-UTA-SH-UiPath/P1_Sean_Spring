@@ -3,6 +3,9 @@
 *@
 <h1>Add Pizzas to your new Order @Model.OrderId</h1>
 
+<a asp-action="ViewOrderPizza" asp-controller="OrderPizza" asp-route-id="@Model.OrderId">View Order</a>
+
+
 <div>
     <h4>Meat Pizza</h4>
     <form method="post" asp-action="Create" asp-controller="OrderPizza">
@@ -12,10 +15,10 @@
             <option value="3">Small</option>
             <option value="1">Medium</option>
             <option value="5">Large</option>
-        </select>
+        </select><br />
         <label for="quantity">Input Quantity</label>
-        <input type ="number" id="quantity" name="quantity" />
-        <input type="submit" value="Add To Order"/>
+        <input type="number" id="quantity" name="quantity" /><br />
+        <input type="submit" value="Add To Order" />
     </form>
 </div>
 
@@ -25,12 +28,45 @@
         <input type="hidden" id="orderid" name="orderid" value="@Model.OrderId" />
         <label for="pizzaid">Choose a size</label>
         <select id="pizzaid" name="pizzaid">
-            <option value="5">Small</option>
+            <option value="6">Small</option>
             <option value="2">Medium</option>
             <option value="7">Large</option>
-        </select>
+        </select> 
         <label for="quantity">Input Quantity</label>
-        <input type="number" id="quantity" name="quantity" />
+        <input type="number" id="quantity" name="quantity" /><br />
         <input type="submit" value="Add To Order" />
     </form>
 </div>
+
+<div>
+    <h4>Custom Pizza</h4>
+    <form method="post" asp-action="Create" asp-controller="Pizza">
+        <input type="hidden" id="orderid" name="orderid" value="@Model.OrderId" />
+        <label for="sizeid">Choose a size</label>
+        <select id="sizeid" name="sizeid">
+            <option value="1">Small</option>
+            <option value="2">Medium</option>
+            <option value="3">Large</option>
+        </select><br />
+        <label for="crustid">Choose a crust</label>
+        <select id="crustid" name="crustid">
+            <option value="1">RegularCrust</option>
+            <option value="2">CheestCrust</option>
+            <option value="3">GarlicCrust</option>
+        </select><br />
+        <label for="toppingid">Pick Your Toppings</label>
+        <select multiple name="toppingid" id="toppingid">
+            <option value="1">Pepperoni</option>
+            <option value="2">Sausage</option>
+            <option value="3">Olives</option>
+            <option value="4">Spinach</option>
+            <option value="5">MozzerellaCheese</option>
+            <option value="6">BellPepper</option>
+        </select><br />
+        <label for="quantity">Input Quantity</label>
+        <input type="number" id="quantity" name="quantity" /><br />
+        <input type="submit" value="Add To Order" />
+    </form>
+</div>
+
+

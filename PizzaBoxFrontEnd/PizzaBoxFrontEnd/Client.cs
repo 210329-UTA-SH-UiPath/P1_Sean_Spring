@@ -86,6 +86,26 @@ namespace PizzaBoxFrontEnd
             Console.WriteLine(result);
         }
 
+        public async void AddPizza(Pizza pizza)
+        {
+            var json = JsonConvert.SerializeObject(pizza);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            using var client = new HttpClient();
+            var response = await client.PostAsync(url + "Pizza", data);
+            var result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+        }
+
+        public async void AddPizzaTopping(PizzaTopping pizzatopping)
+        {
+            var json = JsonConvert.SerializeObject(pizzatopping);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            using var client = new HttpClient();
+            var response = await client.PostAsync(url + "PizzaTopping", data);
+            var result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+        }
+
         public IEnumerable<Order> GetOrdersByCustomerId(int id)
         {
             using var client = new HttpClient();
@@ -98,6 +118,26 @@ namespace PizzaBoxFrontEnd
             if (result.IsSuccessStatusCode)
             {
                 var readTask = result.Content.ReadAsAsync<Order[]>();
+                readTask.Wait();
+
+                var orders = readTask.Result;
+                return orders;
+            }
+            return null;
+        }
+
+        public IEnumerable<OrderPizza> GetOrderPizzaByOrderId(int id)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(url + "OrderPizza/" + id);
+            var response = client.GetAsync("");
+            response.Wait();
+
+            var result = response.Result;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<OrderPizza[]>();
                 readTask.Wait();
 
                 var orders = readTask.Result;
@@ -146,7 +186,34 @@ namespace PizzaBoxFrontEnd
             return null;
         }
 
+        public Pizza GetRecentlyAddedPizza()
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(url + "Pizza/GetRecent");
+            var response = client.GetAsync("");
+            response.Wait();
 
+            var result = response.Result;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<Pizza>();
+                readTask.Wait();
+
+                var pizza = readTask.Result;
+                return pizza;
+            }
+            return null;
+        }
+
+        public async void DeleteOrderPizza(int id)
+        {
+            using var Client = new HttpClient();
+            Client.BaseAddress = new Uri(url + "OrderPizza/" + id);
+            var response = await Client.DeleteAsync("");
+            var result = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(result);
+        }
 
     }
 }

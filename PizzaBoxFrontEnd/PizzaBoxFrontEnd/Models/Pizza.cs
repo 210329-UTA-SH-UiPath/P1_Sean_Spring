@@ -12,7 +12,7 @@ namespace PizzaBoxFrontEnd.Models
             OrderPizzas = new HashSet<OrderPizza>();
             PizzaToppings = new HashSet<PizzaTopping>();
         }
-
+        public decimal price;
         public int PizzaId { get; set; }
         public string Name { get; set; }
         public int CrustId { get; set; }
@@ -22,5 +22,20 @@ namespace PizzaBoxFrontEnd.Models
         public virtual Size Size { get; set; }
         public virtual ICollection<OrderPizza> OrderPizzas { get; set; }
         public virtual ICollection<PizzaTopping> PizzaToppings { get; set; }
+
+
+        public void setPrice()
+        {
+                decimal pizzaPrice = 0;
+                pizzaPrice += Size.Price;
+                pizzaPrice += Crust.Price;
+                foreach (var topping in PizzaToppings)
+                {
+                    pizzaPrice += topping.Topping.Price;
+                }
+
+                price += pizzaPrice;
+            
+        }
     }
 }

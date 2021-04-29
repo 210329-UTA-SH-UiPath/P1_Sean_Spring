@@ -33,6 +33,13 @@ namespace PizzaBoxFrontEnd.Controllers
         }
 
         [HttpGet]
+        public IActionResult Return()
+        {
+            var newOrder = client.GetRecentlyAddedOrder();
+            return View("NewOrder", newOrder);
+        }
+
+        [HttpGet]
         public IActionResult IndexById(int id)
         {
             var order = client.GetOrderById(id);

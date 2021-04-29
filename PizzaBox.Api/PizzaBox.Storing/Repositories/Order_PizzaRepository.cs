@@ -4,6 +4,7 @@ using System.Linq;
 using PizzaBox.Domain;
 using PizzaBox.Domain.Models;
 using PizzaBox.Storing.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace PizzaBox.Storing.Repositories
 {
@@ -75,7 +76,11 @@ namespace PizzaBox.Storing.Repositories
 
         public List<Domain.Models.OrderPizza> GetAllItemsByOrderId(int id)
         {
-            return context.OrderPizzas.Where(x => x.OrderId == id).Select(mapper.Map).ToList();
+            return context.OrderPizzas.Include(o => o.Pizza)
+            .Include(o => o.Pizza).ThenInclude(c => c.Crust)
+            .Include(o => o.Pizza).ThenInclude(s => s.Size)
+            .Include(o => o.Pizza).ThenInclude(p => p.PizzaToppings).ThenInclude(p => p.Topping)
+            .Where(x => x.OrderId == id).Select(mapper.Map).ToList();
         }
 
         public OrderPizza GetById(int id)

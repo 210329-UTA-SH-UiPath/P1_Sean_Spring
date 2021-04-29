@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PizzaBoxFrontEnd.Models.OrderPizza>
+
+@{
+    ViewData["Title"] = "ViewOrderPizza";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View Order</h1>
+<a href='javascript:history.go(-1)'>Go Back</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Pizza
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Crust
+            </th>
+            <th>
+                Topping
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pizza.Name)
+            </td>
+            <td>
+                @item.Pizza.Size.Name - @item.Pizza.Size.Price
+            </td>
+            <td>
+                @item.Pizza.Crust.Name - @item.Pizza.Crust.Price
+            </td>
+            <td>
+                <ul>
+                    @foreach (var topping in item.Pizza.PizzaToppings)
+                    {
+                        <li>
+                            Topping - @topping.Topping.Name - @topping.Topping.Price
+                        </li>
+                    }
+                </ul>
+            </td>
+            <td>
+                @item.Pizza.price
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "OrderPizza", new { id=item.OrderPizzaId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -28,6 +28,14 @@ namespace PizzaBox.Api.Controllers
             return Ok(repository.GetAllItems());
         }
 
+        [HttpGet("GetRecent/")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Pizza> GetRecentlyAdded()
+        {
+            return Ok(repository.GetRecentlyAdded());
+        }
+
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

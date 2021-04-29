@@ -25,19 +25,32 @@ namespace PizzaBox.Storing.Mappers
         {
             List<Domain.Models.PizzaTopping> pizzaToppings = new List<Domain.Models.PizzaTopping>();
             obj.PizzaToppings.ToList().ForEach(o => pizzaToppings.Add(pizzatoppingmapper.Map(o)));
-
-            return new Domain.Models.Pizza
+            if (obj.Crust != null)
             {
-                PizzaId = obj.PizzaId,
-                Name = obj.Name,
-                SizeId = obj.SizeId,
-                CrustId = obj.CrustId,
+                return new Domain.Models.Pizza
+                {
+                    PizzaId = obj.PizzaId,
+                    Name = obj.Name,
+                    SizeId = obj.SizeId,
+                    CrustId = obj.CrustId,
 
-                Crust = crustmapper.Map(obj.Crust),
-                Size = sizemapper.Map(obj.Size),
+                    Crust = crustmapper.Map(obj.Crust),
+                    Size = sizemapper.Map(obj.Size),
 
-                PizzaToppings = pizzaToppings
-            };
+                    PizzaToppings = pizzaToppings
+                };
+            }
+            else
+            {
+                return new Domain.Models.Pizza
+                {
+                    PizzaId = obj.PizzaId,
+                    Name = obj.Name,
+                    SizeId = obj.SizeId,
+                    CrustId = obj.CrustId
+                };
+            }
+           
         }
     }
 }
