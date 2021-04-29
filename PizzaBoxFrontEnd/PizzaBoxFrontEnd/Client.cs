@@ -125,6 +125,25 @@ namespace PizzaBoxFrontEnd
             }
             return null;
         }
+        public IEnumerable<Order> GetOrdersByStoreId(int id)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri(url + "Order/Storeid/" + id);
+            var response = client.GetAsync("");
+            response.Wait();
+
+            var result = response.Result;
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<Order[]>();
+                readTask.Wait();
+
+                var orders = readTask.Result;
+                return orders;
+            }
+            return null;
+        }
 
         public IEnumerable<OrderPizza> GetOrderPizzaByOrderId(int id)
         {

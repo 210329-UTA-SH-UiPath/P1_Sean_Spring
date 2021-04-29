@@ -17,14 +17,27 @@ namespace PizzaBox.Storing.Mappers
 
         public Domain.Models.PizzaTopping Map(Entities.PizzaTopping obj)
         {
-            return new Domain.Models.PizzaTopping
+            if (obj.Topping != null )
             {
-                PizzaToppingId = obj.PizzaToppingId,
-                PizzaId = obj.PizzaId,
-                ToppingId = obj.ToppingId,
+                return new Domain.Models.PizzaTopping
+                {
+                    PizzaToppingId = obj.PizzaToppingId,
+                    PizzaId = obj.PizzaId,
+                    ToppingId = obj.ToppingId,
 
-                Topping = toppingMapper.Map(obj.Topping)
-            };
+                    Topping = toppingMapper.Map(obj.Topping)
+                };
+            }
+            else
+            {
+                return new Domain.Models.PizzaTopping
+                {
+                    PizzaToppingId = obj.PizzaToppingId,
+                    PizzaId = obj.PizzaId,
+                    ToppingId = obj.ToppingId,
+                };
+            }
+            
         }
     }
 }

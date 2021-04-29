@@ -1,27 +1,54 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using PizzaBox.Client.Controller;
 using PizzaBox.Storing.Entities;
+
 using Xunit;
 
 namespace PizzaBox.Testing.Tests
 {
+    
     public class CustomerTests
     {
-        [Fact]
-        public void TestGetCustomerByName()
+        Customer customer = new Customer
         {
-            using (var input = new StringReader("Sean"))
-            {
-                Console.SetIn(input);
-                var sut = CustomerController.GetCustomerByName();
+            CustomerId = 1,
+            Name = "Sean",
 
-                bool isNull = sut == null;
+        };
+        [Fact]
+        public void TestCustomerId()
+        {
 
-                Assert.False(isNull);
-            }
+            var sut = customer.CustomerId;
 
+            bool istwo = sut == 1;
+
+            Assert.True(istwo);
         }
+
+        [Fact]
+        public void TestCustomerName()
+        {
+            var sut = customer.Name;
+
+            bool isNull = sut == "Sean";
+
+            Assert.True(isNull);
+        }
+        //[Fact]
+        //public void TestGetCustomerByName()
+        //{
+        //    using (var input = new StringReader("Sean"))
+        //    {
+        //        Console.SetIn(input);
+        //        var sut = CustomerController.GetCustomerByName();
+
+        //        bool isNull = sut == null;
+
+        //        Assert.False(isNull);
+        //    }
+
+        //}
     }
 }

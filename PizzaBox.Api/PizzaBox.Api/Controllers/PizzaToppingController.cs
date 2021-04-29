@@ -15,7 +15,7 @@ namespace PizzaBox.Api.Controllers
     {
         private readonly PizzaToppingRepository repository;
 
-        PizzaToppingController( PizzaToppingRepository repository)
+        public PizzaToppingController( PizzaToppingRepository repository)
         {
             this.repository = repository;
         }

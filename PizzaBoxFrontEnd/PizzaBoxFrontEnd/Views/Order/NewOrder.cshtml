@@ -6,7 +6,7 @@
 <a asp-action="ViewOrderPizza" asp-controller="OrderPizza" asp-route-id="@Model.OrderId">View Order</a>
 
 
-<div>
+<div style="border:black;">
     <h4>Meat Pizza</h4>
     <form method="post" asp-action="Create" asp-controller="OrderPizza">
         <input type="hidden" id="orderid" name="orderid" value="@Model.OrderId" />
@@ -22,7 +22,7 @@
     </form>
 </div>
 
-<div>
+<div style="border:black;">
     <h4>Vegan Pizza</h4>
     <form method="post" asp-action="Create" asp-controller="OrderPizza">
         <input type="hidden" id="orderid" name="orderid" value="@Model.OrderId" />
@@ -31,14 +31,14 @@
             <option value="6">Small</option>
             <option value="2">Medium</option>
             <option value="7">Large</option>
-        </select> 
+        </select> <br />
         <label for="quantity">Input Quantity</label>
         <input type="number" id="quantity" name="quantity" /><br />
         <input type="submit" value="Add To Order" />
     </form>
 </div>
 
-<div>
+<div style="border:black;">
     <h4>Custom Pizza</h4>
     <form method="post" asp-action="Create" asp-controller="Pizza">
         <input type="hidden" id="orderid" name="orderid" value="@Model.OrderId" />

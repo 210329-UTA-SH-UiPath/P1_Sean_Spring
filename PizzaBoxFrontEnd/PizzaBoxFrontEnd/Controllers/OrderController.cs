@@ -16,6 +16,12 @@ namespace PizzaBoxFrontEnd.Controllers
             return View(orders);
         }
 
+        public IActionResult GetByStoreId(int storeid)
+        {
+            var orders = client.GetOrdersByStoreId(storeid);
+            return View(orders);
+        }
+
         [HttpPost]
         public IActionResult Create([Bind("CustomerId, StoreId")] Order order)
         {

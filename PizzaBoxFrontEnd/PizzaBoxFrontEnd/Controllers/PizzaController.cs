@@ -45,7 +45,6 @@ namespace PizzaBoxFrontEnd.Controllers
                 client.AddPizzaTopping(pizzaTopping);
             }
 
-
             return View("Index");
         }
     }

@@ -1,31 +1,49 @@
 using System;
 using System.Collections.Generic;
-using PizzaBox.Client.Controller;
 using PizzaBox.Storing.Entities;
+using PizzaBox.Api.Controllers;
 using Xunit;
 
 namespace PizzaBox.Testing.Tests
 {
     public class CrustTests
     {
-        [Fact]
-        public void TestGetCrusts()
+        Crust crust = new Crust
         {
-            var sut = CrustController.GetCrusts();
+            CrustId = 2,
+            Name = "Crust",
+            Price = 4
+        };
 
-            bool isNull = sut == null;
+        [Fact]
+        public void TestCrustId()
+        {
+            
+            var sut = crust.CrustId;
 
-            Assert.False(isNull);
+            bool istwo = sut == 2;
+
+            Assert.True(istwo);
         }
 
         [Fact]
-        public void TestGetCrustsById()
+        public void TestCrustName()
         {
-            var sut = CrustController.GetCrustById(1);
+            var sut = crust.Name;
 
-            bool isNull = sut == null;
+            bool isNull = sut == "Crust";
 
-            Assert.False(isNull);
+            Assert.True(isNull);
+        }
+
+        [Fact]
+        public void TestCrustPrice()
+        {
+            var sut = crust.Price;
+
+            bool isNull = sut == 4;
+
+            Assert.True(isNull);
         }
     }
 }
